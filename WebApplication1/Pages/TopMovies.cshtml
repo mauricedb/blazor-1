@@ -39,8 +39,11 @@ else
 
         this.StateHasChanged();
 
-        var result = Browser.MyAlert("Loaded more data");
-        Console.WriteLine(result);
+        if (response.results.Length == 0)
+        {
+            var result = Browser.MyAlert("No more data to load");
+            Console.WriteLine(result);
+        }
     }
 
     class Response
