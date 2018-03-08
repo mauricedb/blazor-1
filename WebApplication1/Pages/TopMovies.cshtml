@@ -13,12 +13,7 @@ else
     <div>
         @foreach (var movie in movies)
         {
-            <div>
-                <h3>@movie.title</h3>
-                <a href="/movie/@movie.id">
-                    <img src="@movie.PosterPathW300" alt="@movie.title" width="100" />
-                </a>
-            </div>
+            <MovieListItem movie=movie />
         }
     </div>
     <button @onclick(LoadMoreMovies)>Load more</button>
@@ -33,8 +28,6 @@ protected override async Task OnInitAsync()
 {
     var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
     movies = response.results.ToList();
-    //Console.WriteLine(response.results);
-    //Console.WriteLine(response.results.Length);
 }
 
 async void LoadMoreMovies()
@@ -44,9 +37,6 @@ async void LoadMoreMovies()
     movies.AddRange(response.results);
 
     this.StateHasChanged();
-    //this.ShouldRender();
-
-    //Console.WriteLine(movies.Count);
 }
 
 class Response

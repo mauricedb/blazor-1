@@ -19,16 +19,22 @@
 
   <ItemGroup>
     <Content Remove="Pages\MovieDetails.cshtml" />
+    <Content Remove="Pages\MovieListItem.cshtml" />
     <Content Remove="Pages\TopMovies.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Pages\MovieDetails.cshtml" />
+    <None Include="Pages\MovieListItem.cshtml" />
     <None Include="Pages\TopMovies.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <BlazorGenerate Remove="Pages\MovieDetails.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Pages\MovieListItem.cshtml" />
   </ItemGroup>
 
 </Project>

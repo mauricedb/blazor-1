@@ -1,0 +1,16 @@
+﻿@using  Models;
+
+
+<div>
+    <h3>@movie.title</h3>
+    <a href="/movie/@movie.id">
+        <img src="@movie.PosterPathW300" alt="@movie.title" width="100" />
+    </a>
+
+</div>
+
+@functions {
+
+    public Movie movie { get; set; }
+
+}
