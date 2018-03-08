@@ -1,1 +1,46 @@
-﻿<h1>Movie</h1>
+﻿@using System.Text.RegularExpressions;
+@using Models;
+
+@inject HttpClient Http;
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper uriHelper;
+
+@if (movie == null)
+{
+    <div>
+        <h1>Movie</h1>
+        <div>Loading...</div>
+    </div>
+}
+
+else
+{
+    <div>
+        <h1>@movie.title</h1>
+        <img src="@movie.PosterPathW300" alt="@movie.title" />
+        <div>
+            Vote: @movie.vote_average
+        </div>
+        <ul>
+            @foreach (var genre in movie.genres)
+            {
+                <li>@genre.name</li>
+            }
+        </ul>
+    </div>
+}
+
+@functions {
+
+    MovieDetail movie;
+
+    override protected async Task OnInitAsync()
+    {
+        var re = new Regex(@"\/movie\/(\d+)");
+        var match = re.Match(uriHelper.GetAbsoluteUri());
+        if (match.Success)
+        {
+            var movieId = match.Groups[1].Value;
+            movie = await Http.GetJsonAsync<MovieDetail>($"https://api.themoviedb.org/3/movie/{movieId}?api_key={Settings.ApiKey}&language=en-US");
+        }
+    }
+}

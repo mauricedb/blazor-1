@@ -14,4 +14,16 @@
             }
         }
     }
+
+    public class MovieDetail : Movie
+    {
+        public decimal vote_average { get; set; }
+        public Genre[] genres { get; set; }
+    }
+
+   public class Genre
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 }
