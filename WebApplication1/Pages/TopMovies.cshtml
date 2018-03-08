@@ -1,5 +1,6 @@
 ﻿@using  Models;
 
+
 @inject HttpClient Http;
 
 <h1>Top Rated Movies</h1>
@@ -21,28 +22,31 @@ else
 
 @functions {
 
-List<Movie> movies;
-int page = 1;
+    List<Movie> movies;
+    int page = 1;
 
-protected override async Task OnInitAsync()
-{
-    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
-    movies = response.results.ToList();
-}
+    protected override async Task OnInitAsync()
+    {
+        var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
+        movies = response.results.ToList();
+    }
 
-async void LoadMoreMovies()
-{
-    page++;
-    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
-    movies.AddRange(response.results);
+    async void LoadMoreMovies()
+    {
+        page++;
+        var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
+        movies.AddRange(response.results);
 
-    this.StateHasChanged();
-}
+        this.StateHasChanged();
 
-class Response
-{
-    public int page { get; set; }
-    public int total_pages { get; set; }
-    public Movie[] results { get; set; }
-}
+        var result = Browser.MyAlert("Loaded more data");
+        Console.WriteLine(result);
+    }
+
+    class Response
+    {
+        public int page { get; set; }
+        public int total_pages { get; set; }
+        public Movie[] results { get; set; }
+    }
 }

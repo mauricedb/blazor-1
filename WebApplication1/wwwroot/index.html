@@ -10,7 +10,16 @@
 <body>
     <app>Loading...</app>
 
+
     <script src="css/bootstrap/bootstrap-native.min.js"></script>
     <script type="blazor-boot"></script>
+    <script>
+        Blazor.registerFunction("MyAlert", function (msg) {
+            alert(msg);
+
+            return `Alerted: ${msg}`;
+        })
+
+    </script>
 </body>
 </html>
