@@ -152,3 +152,5 @@ C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandar
 C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandard2.0\WebApplication1.csprojResolveAssemblyReference.cache
 C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandard2.0\Pages\MovieListItem.g.i.cs
 C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandard2.0\Pages\MovieListItem.g.cs
+C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandard2.0\Pages\SearchMovies.g.i.cs
+C:\Users\mauri\source\repos\WebApplication1\WebApplication1\obj\Debug\netstandard2.0\Pages\SearchMovies.g.cs
