@@ -1,0 +1,45 @@
+﻿@using  Models;
+
+@inject HttpClient Http;
+
+<h1>Top Rated Movies</h1>
+
+@if (movies == null)
+{
+    <div>Loading movies...</div>
+}
+else
+{
+    <div>
+        @foreach (var movie in movies)
+        {
+            <div>
+                <a href="/movie/@movie.id">
+                    <h2>@movie.title</h2>
+                    <img src="@movie.PosterPathW300" alt="@movie.title" />
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@functions {
+
+Movie[] movies;
+
+protected override async Task OnInitAsync()
+{
+    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page=2");
+    movies = response.results;
+    Console.WriteLine(response.results);
+    Console.WriteLine(response.results.Length);
+}
+
+
+class Response
+{
+    public int page { get; set; }
+    public int total_pages { get; set; }
+    public Movie[] results { get; set; }
+}
+}
