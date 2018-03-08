@@ -14,27 +14,40 @@ else
         @foreach (var movie in movies)
         {
             <div>
+                <h3>@movie.title</h3>
                 <a href="/movie/@movie.id">
-                    <h2>@movie.title</h2>
-                    <img src="@movie.PosterPathW300" alt="@movie.title" />
+                    <img src="@movie.PosterPathW300" alt="@movie.title" width="100" />
                 </a>
             </div>
         }
     </div>
+    <button @onclick(LoadMoreMovies)>Load more</button>
 }
 
 @functions {
 
-Movie[] movies;
+List<Movie> movies;
+int page = 1;
 
 protected override async Task OnInitAsync()
 {
-    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page=2");
-    movies = response.results;
-    Console.WriteLine(response.results);
-    Console.WriteLine(response.results.Length);
+    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
+    movies = response.results.ToList();
+    //Console.WriteLine(response.results);
+    //Console.WriteLine(response.results.Length);
 }
 
+async void LoadMoreMovies()
+{
+    page++;
+    var response = await Http.GetJsonAsync<Response>($"https://api.themoviedb.org/3/movie/top_rated?api_key={Settings.ApiKey}&language=en-US&page={page}");
+    movies.AddRange(response.results);
+
+    this.StateHasChanged();
+    //this.ShouldRender();
+
+    //Console.WriteLine(movies.Count);
+}
 
 class Response
 {
